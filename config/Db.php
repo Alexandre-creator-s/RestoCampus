@@ -4,11 +4,17 @@ class Db {
     private $pdo;
 
     private function __construct() {
+        $host = getenv('DB_HOST') ?: 'localhost';
+        $dbname = getenv('DB_NAME') ?: 'restocampus';
+        $user = getenv('DB_USER') ?: 'root';
+        $pass = getenv('DB_PASS') ?: 'root';
+        $charset = 'utf8';
+
         try {
             $this->pdo = new PDO(
-                "mysql:host=localhost;dbname=restocampus;charset=utf8",
-                "root",    
-                "root"        
+                "mysql:host=$host;dbname=$dbname;charset=$charset",
+                $user,    
+                $pass        
             );
             
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
